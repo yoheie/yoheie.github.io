@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>改行コード確認/変換プログラム retcoder</TITLE>
+</HEAD>
+<BODY>
+<H1>改行コード確認/変換プログラム retcoder</H1>
+<P>retcoderは、指定されたファイル (ファイルの指定の無い場合は標準入力) の改行コードを読み取り、変換して標準出力に出力します。</P>
+<P>変換を行わず、改行コードの判定のみを行うことも出来ます。</P>
+<H2>NEWS</H2>
+<P>2.0.0 でソースコードを新規に書き直し、ライセンスを zlib/libpng ライセンスに変更しました。</P>
+<P><A href="old.html">旧バージョン (1.X.X) はこちら</A>。</P>
+<H2>ダウンロード</H2>
+<H3>UNIX 系向け (ソースコード)</H3>
+<TABLE border="0" summary="retcoder for UNIX">
+<TBODY>
+<TR>
+<TD><A href="retcoder-2.2.0.tar.gz">retcoder-2.2.0.tar.gz</A></TD>
+<TD>2014年 7月 15日</TD>
+</TR>
+<TR>
+<TD><A href="retcoder-2.1.1.tar.gz">retcoder-2.1.1.tar.gz</A></TD>
+<TD>2014年 6月 16日</TD>
+</TR>
+<TR>
+<TD><A href="retcoder-2.1.0.tar.gz">retcoder-2.1.0.tar.gz</A></TD>
+<TD>2011年 11月 10日</TD>
+</TR>
+<TR>
+<TD><A href="retcoder-2.0.2.tar.gz">retcoder-2.0.2.tar.gz</A></TD>
+<TD>2011年 8月 30日</TD>
+</TR>
+<TR>
+<TD><A href="retcoder-2.0.1.tar.gz">retcoder-2.0.1.tar.gz</A></TD>
+<TD>2011年 8月 12日</TD>
+</TR>
+<TR>
+<TD><A href="retcoder-2.0.0.tar.gz">retcoder-2.0.0.tar.gz</A></TD>
+<TD>2011年 8月 8日</TD>
+</TR>
+</TBODY>
+</TABLE>
+<H3>Windows (32bit) 向け (実行ファイル + ソースコード)</H3>
+<TABLE border="0" summary="retcoder for Windows">
+<TBODY>
+<TR>
+<TD><A href="retcoder-2.2.0-win.zip">retcoder-2.2.0-win.zip</A></TD>
+<TD>2014年 7月 15日</TD>
+</TR>
+<TR>
+<TD><A href="retcoder-2.1.1-win.zip">retcoder-2.1.1-win.zip</A></TD>
+<TD>2014年 6月 16日</TD>
+</TR>
+<TR>
+<TD><A href="retcoder-2.1.0-win.zip">retcoder-2.1.0-win.zip</A></TD>
+<TD>2011年 11月 10日</TD>
+</TR>
+<TR>
+<TD><A href="retcoder-2.0.2-win.zip">retcoder-2.0.2-win.zip</A></TD>
+<TD>2011年 8月 30日</TD>
+</TR>
+<TR>
+<TD><A href="retcoder-2.0.1-win.zip">retcoder-2.0.1-win.zip</A></TD>
+<TD>2011年 8月 12日</TD>
+</TR>
+<TR>
+<TD><A href="retcoder-2.0.0-win.zip">retcoder-2.0.0-win.zip</A></TD>
+<TD>2011年 8月 8日</TD>
+</TR>
+</TBODY>
+</TABLE>
+<P>Windows 向け実行ファイルは MinGW/MSYS でビルドしたものです。</P>
+<H3>GitHub</H3>
+<P>最新版のソースコードは <A href="https://github.com/yoheie/retcoder">GitHub</A> からも取得できます。</P>
+
+<H2>更新履歴</H2>
+<TABLE border="0" summary="Changelog">
+<THEAD>
+<TR><TH>日付</TH><TH>バージョン</TH><TH>変更点</TH></TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD>2014年 7月 15日</TD>
+<TD>2.2.0</TD>
+<TD>ファイル名に - が指定された際に標準入力を使用するよう変更</TD>
+</TR>
+<TR>
+<TD>2014年 6月 16日</TD>
+<TD>2.1.1</TD>
+<TD>autoconf 対応、リファクタリング</TD>
+</TR>
+<TR>
+<TD>2011年 11月 10日</TD>
+<TD>2.1.0</TD>
+<TD>--estr オプションを追加</TD>
+</TR>
+<TR>
+<TD>2011年 8月 30日</TD>
+<TD>2.0.2</TD>
+<TD>1つのハイフンの後に複数のショートオプションを指定可能なように変更<BR>例) &quot;-uv&quot; で &quot;-u -v&quot; と同じ動作となります</TD>
+</TR>
+<TR>
+<TD>2011年 8月 12日</TD>
+<TD>2.0.1</TD>
+<TD>WIN32 を _WIN32 に、 setmode を _setmode に、 fileno を _fileno に、 O_BINARY を _O_BINARY に変更</TD>
+</TR>
+<TR>
+<TD>2011年 8月 8日</TD>
+<TD>2.0.0</TD>
+<TD>新規作成</TD>
+</TR>
+</TBODY>
+</TABLE>
+<H2>使用方法</H2>
+<P>$ retcoder [options] [file ...]</P>
+<P>オプションには以下のものがあります。</P>
+<TABLE border="0" summary="retcoder for UNIX">
+<TBODY>
+<TR valign="top">
+<TD>-m, --mac, --cr</TD>
+<TD>改行コードを MAC 形式 (CR) に変換して出力します。</TD>
+</TR>
+<TR valign="top">
+<TD>-u, --unix, --lf</TD>
+<TD>改行コードを UNIX 形式 (LF) に変換して出力します。</TD>
+</TR>
+<TR valign="top">
+<TD>-d, --dos, --crlf</TD>
+<TD>改行コードを DOS 形式 (CR+LF) に変換して出力します。</TD>
+</TR>
+<TR valign="top">
+<TD>-s, --space</TD>
+<TD>改行コードをスペースに変換して出力します。</TD>
+</TR>
+<TR valign="top">
+<TD>-t, --tab</TD>
+<TD>改行コードをタブ文字に変換して出力します。</TD>
+</TR>
+<TR valign="top">
+<TD>-n, --none</TD>
+<TD>改行コードを削除して出力します。</TD>
+</TR>
+<TR valign="top">
+<TD>--str &lt;string&gt;, --str=&lt;string&gt;</TD>
+<TD>改行コードを &lt;string&gt; で指定した文字列に変換して出力します。</TD>
+</TR>
+<TR valign="top">
+<TD>--estr &lt;string&gt;, --estr=&lt;string&gt;</TD>
+<TD>改行コードを &lt;string&gt; で指定した文字列に変換して出力します。<BR>--str との違いは、エスケープシーケンスを解釈することです。<BR>サポートするエスケープシーケンスは &quot;retcoder --help&quot; を参照してください。</TD>
+</TR>
+<TR valign="top">
+<TD>-v, --verbose</TD>
+<TD>標準エラー出力に判定結果を表示します。</TD>
+</TR>
+<TR valign="top">
+<TD>-c, --check</TD>
+<TD>変換は行わず、改行コードの判定のみ行い、標準出力に判定結果を表示します。<BR>(NORC, MAC, UNIX, DOS, MIXED)</TD>
+</TR>
+<TR valign="top">
+<TD>--version</TD>
+<TD>バージョンを表示します。</TD>
+</TR>
+<TR valign="top">
+<TD>-h, --help</TD>
+<TD>使用方法を表示します。</TD>
+</TR>
+<TR valign="top">
+<TD>--</TD>
+<TD>以降の引数は全てファイル名として扱います。<BR>ファイル名の先頭に &quot;-&quot; が付いている場合などに利用する必要があります。</TD></TR>
+</TBODY>
+</TABLE>
+<P>ファイル名が省略された場合,標準入力から読み込みます。</P>
+<P>オプションの指定が複数あった場合、最後に指定したものを有効にします。<BR>但し、 -h, --help, --version, -c, --check の各オプションが指定された場合は他のオプションを無視します。</P>
+<H2>注意事項</H2>
+<UL>
+<LI>標準出力のリダイレクト先として入力ファイルを指定すると、正常に変換が行われません。</LI>
+<LI>2種類以上の改行コードが混在している場合、変換後の改行の回数は期待通りにならない可能性があります。</LI>
+</UL>
+<H2>改編,再配布等について</H2>
+<P>ライセンスに関しては、 <A href="http://www.opensource.org/licenses/Zlib">zlib/libpng ライセンス</A> <A href="http://sourceforge.jp/projects/opensource/wiki/licenses%2Fzlib_libpng_license">(参考:日本語訳)</A> にしたがうものとします。</P>
+<HR>
+<P><A href="../index.html">トップページへ</A></P>
+<HR>
+<P><A href="http://validator.w3.org/check?uri=referer"><IMG src="http://www.w3.org/Icons/valid-html401.png" alt="W3C Validator Check" height="31" width="88"></A> <A href="http://openlab.ring.gr.jp/k16/htmllint/htmllint.cgi?ViewSource=on"><IMG src="http://openlab.ring.gr.jp/k16/images/ahl-good.png" alt="Another HTML-Lint Check" width="88" height="31"></A></P>
+</BODY>
+</HTML>

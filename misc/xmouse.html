@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>X-Mouse 関連 技術情報</TITLE>
+</HEAD>
+<BODY>
+<H1>X-Mouse 関連 技術情報</H1>
+
+<P><A href="../ttxmouse/index.html">TTXMouse</A> を作成する中で調べた, X-Mouse に関連する情報をまとめました.</P>
+
+<H2>注意事項</H2>
+
+<P>本技術情報は私 遠藤 陽平 が独自に調査・作成したものです. 作成にあたり Microsoft 社の公式な資料を参照しておりますが, 本技術情報自体は Microsoft 社の公式な資料ではなく, Microsoft 社がその内容を保証するものではありません.</P>
+
+<P>対象 OS : Windows XP・Vista・7 32bit</P>
+<P>最終更新日 : 2013-01-15</P>
+
+<H2>はじめに</H2>
+
+<P>X-Mouse とは, Windows を X Window System 風のフォーカス移動で使用するための設定である.</P>
+<P>通常, Windows ではマウスクリックによりウィンドウのフォーカスが移動する. X-Mouse の設定により, ポインタの移動に追従してフォーカスを移動することと, その際にフォーカスしたウィンドウを最前面に移動することが可能となる.</P>
+<P>本資料では X-Mouse の設定に関するレジストリ・ API について解説する.</P>
+
+<H2>レジストリ</H2>
+
+<P>&quot;HKEY_CURRENT_USER\Control Panel\Desktop\&quot; キー中の下記の値が, X-Mouse 設定に関連するレジストリ設定となる.</P>
+<P>これらのレジストリに対する変更は, ログオン中のユーザーに対し即座には反映されない. レジストリの設定を反映するには, 一旦ログオフし, 再度ログオンする必要がある.</P>
+
+<TABLE summary="X-Mouse 関連レジストリ">
+<THEAD>
+<TR>
+<TH>名前</TH>
+<TH>型 (サイズ)</TH>
+<TH>値</TH>
+<TH>備考</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD>UserPreferencesMask</TD>
+<TD>REG_BINARY (4Bytes (Windows XP・Vista) / 8Bytes (Windows 7))</TD>
+<TD>オフセット 0 の bit 0 が Focus の無効(0)/有効(1), bit 6 が Raise の無効(0)/有効(1)</TD>
+<TD></TD>
+</TR>
+<TR>
+<TD>ActiveWndTrkTimeout</TD>
+<TD>REG_DWORD</TD>
+<TD>Focus 及び Raise の待ち時間 [ms]</TD>
+<TD>似た名前の ActiveWndTrackTimeout という値があるが, X-Mouse とは無関係(?)</TD>
+</TR>
+</TBODY>
+</TABLE>
+
+<H2>API</H2>
+
+<P>下記の引数を指定して <A href="http://msdn.microsoft.com/library/cc429946.aspx">SystemParametersInfo API</A> を実行することで, X-Mouse 関連の設定が可能.</P>
+<P>これらの API による設定の変更は, ログオン中のユーザーに対し即座に反映される. また, SPIF_UPDATEINIFILE を指定した場合は同時に上記のレジストリへも設定が保存される. SPIF_SENDCHANGE の指定の有無による動作の相違は未確認.</P>
+
+<TABLE summary="X-Mouse 関連レジストリ">
+<THEAD>
+<TR>
+<TH>用途</TH>
+<TH>第1引数 (UINT uiAction)</TH>
+<TH>第2引数 (UINT uiParam)</TH>
+<TH>第3引数 (PVOID pvParam)</TH>
+<TH>第4引数 (UINT fWinIni)</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD>Focus 設定の取得</TD>
+<TD>SPI_GETACTIVEWINDOWTRACKING</TD>
+<TD>0</TD>
+<TD>取得した Focus 設定を格納する BOOL 型変数へのポインタ</TD>
+<TD>0</TD>
+</TR>
+<TR>
+<TD>Raise 設定の取得</TD>
+<TD>SPI_GETACTIVEWNDTRKZORDER</TD>
+<TD>0</TD>
+<TD>取得した Raise 設定を格納する BOOL 型変数へのポインタ</TD>
+<TD>0</TD>
+</TR>
+<TR>
+<TD>待ち時間 設定の取得</TD>
+<TD>SPI_GETACTIVEWNDTRKTIMEOUT</TD>
+<TD>0</TD>
+<TD>取得した 待ち時間 設定を格納する DWORD 型変数へのポインタ</TD>
+<TD>0</TD>
+</TR>
+<TR>
+<TD>Focus 設定</TD>
+<TD>SPI_SETACTIVEWINDOWTRACKING</TD>
+<TD>0</TD>
+<TD>PVOID 型に型変換した Focus 設定のBOOL 値</TD>
+<TD>必要に応じて SPIF_UPDATEINIFILE 及び SPIF_SENDCHANGE の各フラグを指定</TD>
+</TR>
+<TR>
+<TD>Raise 設定</TD>
+<TD>SPI_SETACTIVEWNDTRKZORDER</TD>
+<TD>0</TD>
+<TD>PVOID 型に型変換した Raise 設定の BOOL 値</TD>
+<TD>必要に応じて SPIF_UPDATEINIFILE 及び SPIF_SENDCHANGE の各フラグを指定</TD>
+</TR>
+<TR>
+<TD>待ち時間 設定</TD>
+<TD>SPI_SETACTIVEWNDTRKTIMEOUT</TD>
+<TD>0</TD>
+<TD>PVOID 型に変換した 待ち時間 設定の DWORD 値</TD>
+<TD>必要に応じて SPIF_UPDATEINIFILE 及び SPIF_SENDCHANGE の各フラグを指定</TD>
+</TR>
+</TBODY>
+</TABLE>
+
+<H2>.NET Framework</H2>
+
+<P>下記の各プロパティにより, ログオン中のユーザーの X-Mouse 関連の設定の取得が可能.</P>
+<P>(Raise 設定の取得及び各設定の変更は, 可能かどうかも含め未確認.)</P>
+
+<TABLE summary="X-Mouse 関連 .NET Framework プロパティ">
+<THEAD>
+<TR>
+<TH>プロパティ</TH>
+<TH>名前空間</TH>
+<TH>取得される設定</TH>
+<TH>備考</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD><A href="http://msdn.microsoft.com/library/system.windows.forms.systeminformation.isactivewindowtrackingenabled.aspx">SystemInformation.IsActiveWindowTrackingEnabled</A></TD>
+<TD>System.Windows.Forms</TD>
+<TD>Focus 設定</TD>
+<TD>.NET Framework 2.0 以降</TD>
+</TR>
+<TR>
+<TD><A href="http://msdn.microsoft.com/library/system.windows.forms.systeminformation.activewindowtrackingdelay.aspx">SystemInformation.ActiveWindowTrackingDelay</A></TD>
+<TD>System.Windows.Forms</TD>
+<TD>待ち時間</TD>
+<TD>.NET Framework 2.0 以降</TD>
+</TR>
+</TBODY>
+</TABLE>
+
+<H2>GUI による設定</H2>
+
+<P>Microsoft では X-Mouse に関連する GUI による設定ツールとして以下を提供している.</P>
+<P>これらのツールはいずれも, ログオン中のユーザーに対し即座に設定を反映するとともに, レジストリへの設定の保存も行う.</P>
+
+<H3>TweakUI (for Windows XP)</H3>
+
+<P>『<A href="http://windows.microsoft.com/en-US/windows/downloads/windows-xp">Windows XP downloads - Microsoft Windows</A>』より TweakUI を入手, インストールする.</P>
+
+<P>TweakUI を実行し, ツリーから『Mouse』→『X-Mouse』を選択する.</P>
+
+<P>『Activation follows mouse (X-Mouse)』のチェックで Focus が, 『Autoraise when activating』のチェックで Raise が有効になる. 『Activation delay (ms):』に設定した値が待ち時間となる.</P>
+
+<H3>コントロール パネル からの設定 (for Windows 7)</H3>
+
+<P>『コントロール パネル』→『コンピューターの簡単操作』→『コンピューターの簡単操作センター』→『マウスを使いやすくします』を開く.</P>
+
+<P>『ウィンドウの管理を簡単にします』の『マウス ポインターをウィンドウ上に合わせたときにウィンドウを選択します(W)』にチェックを入れると, Focus 及び Raise が有効になり, 待ち時間が 500ms に設定される.</P>
+
+<H2>更新履歴</H2>
+
+<TABLE summary="更新履歴">
+<THEAD>
+<TR>
+<TH>日付</TH>
+<TH>変更内容</TH>
+</TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD>2012-04-10</TD>
+<TD>公開.</TD>
+</TR>
+<TR>
+<TD>2012-04-19</TD>
+<TD>.NET Framework での設定取得方法を追加.</TD>
+</TR>
+<TR>
+<TD>2013-01-15</TD>
+<TD>『はじめに』を追加.</TD>
+</TR>
+</TBODY>
+</TABLE>
+
+<HR>
+<P><A href="./index.html">その他諸々置き場へ</A></P>
+<P><A href="../index.html">トップページへ</A></P>
+<HR>
+<P><A href="http://validator.w3.org/check?uri=referer"><IMG src="http://www.w3.org/Icons/valid-html401.png" alt="W3C Validator Check" height="31" width="88"></A> <A href="http://openlab.ring.gr.jp/k16/htmllint/htmllint.cgi?ViewSource=on"><IMG src="http://openlab.ring.gr.jp/k16/images/ahl-good.png" alt="Another HTML-Lint Check" width="88" height="31"></A></P>
+</BODY>
+</HTML>

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>isftoasc</TITLE>
+</HEAD>
+<BODY>
+<H1>Tektronix 社 ISF 形式オシロスコープデータ → ASCII ファイル変換プログラム</H1>
+<P>Tektronix 社のオシロスコープ『TDS 3052』でデータをフロッピーディスクに保存する際に用いられる ISF 形式のファイルを、Linux 上で gnuplot 等を用いて処理するのに適したテキストファイルに変換するプログラムを作成しました。</P>
+<P>コンパイル及び動作の確認は Linux 上で行っています。『TDS 3052』以外のオシロスコープのデータでの動作の確認は行っておりません。</P>
+<P>Windows (32bit) 用バイナリは MinGW でビルドしたものです。</P>
+
+<H2>Notice</H2>
+<UL>
+<LI>このプログラムは私 遠藤 陽平 が個人で作成したものであり、 Tektronix 社がその内容を保証するものではありません。このプログラムに関する質問等を、 Tektronix 社に送ることの無いようお願いいたします。</LI>
+<LI>このプログラムは無保証です。このプログラムを利用したことにより得られたいかなる利益・損害に対しても作者、ならびに Tektronix 社は責任を負いません。バグ報告等につきましては、ソースコード中に記載のメールアドレスまでお願いいたします。</LI>
+</UL>
+
+<H2>ダウンロード</H2>
+<P>Version 0.1.7 (2014-01-31)</P>
+<TABLE summary="isftoasc download">
+<TBODY>
+<TR><TD>ソースコード</TD><TD><A href="./isftoasc.c">isftoasc.c</A><BR><A href="./Makefile">Makefile</A></TD></TR>
+<TR><TD>Windows (32bit) 用バイナリ</TD><TD><A href="./isftoasc.exe">isftoasc.exe</A></TD></TR>
+</TBODY>
+</TABLE>
+<P>最新版のソースコードは <A href="https://github.com/yoheie/isftoasc">GitHub</A> からも取得できます。</P>
+
+<H2>使用方法</H2>
+<PRE>$ isftoasc&nbsp;isfファイル名</PRE>
+<P>とすることで、標準出力に変換された内容を出力します。ファイル名を指定しない場合は標準入力から読み込みます。</P>
+<P>変換結果をファイルに保存するには、</P>
+<PRE>$ isftoasc&nbsp;isfファイル名&nbsp;&gt;&nbsp;出力ファイル名</PRE>
+<P>のようにしてください。その際に&nbsp;isfファイル名&nbsp;と&nbsp;出力ファイル名&nbsp;を同一のものにしないようご注意ください。</P>
+
+<HR>
+<P><A href="../index.html">トップページへ</A></P>
+<HR>
+<P><A href="http://validator.w3.org/check?uri=referer"><IMG src="http://www.w3.org/Icons/valid-html401.png" alt="W3C Validator Check" height="31" width="88"></A> <A href="http://openlab.ring.gr.jp/k16/htmllint/htmllint.cgi?ViewSource=on"><IMG src="http://openlab.ring.gr.jp/k16/images/ahl-good.png" alt="Another HTML-Lint Check" width="88" height="31"></A></P>
+</BODY>
+</HTML>

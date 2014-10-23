@@ -1,0 +1,2 @@
+AddType application/x-rpm rpm
+RedirectMatch 404 /\.git

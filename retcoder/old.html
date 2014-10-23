@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>改行コード確認/変換プログラム retcoder 旧バージョン</TITLE>
+</HEAD>
+<BODY>
+<H1>改行コード確認/変換プログラム retcoder 旧バージョン</H1>
+<P>retcoder の旧バージョン (1.X.X) です。</P>
+<P><A href="index.html">最新版はこちら</A>。</P>
+<H2>ダウンロード</H2>
+<P>サーバ容量の都合により、 1.2.0 以前のバージョンの公開は停止しています。</P>
+<H3>UNIX 系向け</H3>
+<TABLE border="0" summary="source files for UNIX">
+<TBODY>
+<TR>
+<TD><A href="retcoder-1.2.1.tar.gz">retcoder-1.2.1.tar.gz</A>
+<BR><A href="retcoder-1.2.1-1.i386.rpm" type="application/x-rpm">retcoder-1.2.1-1.i386.rpm</A>
+<BR><A href="retcoder-1.2.1-1.src.rpm" type="application/x-rpm">retcoder-1.2.1-1.src.rpm</A>
+</TD>
+<TD>2002年 7月 8日</TD>
+</TR>
+<TR>
+<TD>retcoder-1.2.0.tar.gz</TD>
+<TD>2002年 2月 15日 (公開停止中)</TD>
+</TR>
+<TR>
+<TD>retcoder-1.1.0.tar.gz</TD>
+<TD>2002年 2月 13日 (公開停止中)</TD>
+</TR>
+<TR>
+<TD>retcoder-1.0.0.tar.gz</TD>
+<TD>2002年 2月 11日 (公開停止中)</TD>
+</TR>
+</TBODY>
+</TABLE>
+<H3>Windows 向け</H3>
+<TABLE border="0" summary="source files for Windows">
+<TBODY>
+<TR>
+<TD><A href="retcoder-1.2.1-2-Win.lzh">retcoder-1.2.1-2-Win.lzh</A></TD>
+<TD>2003年 7月 16日</TD>
+</TR>
+<TR>
+<TD>retcoder-1.2.1-Win.lzh</TD>
+<TD>2003年 7月 8日 (公開停止中)</TD>
+</TR>
+</TBODY>
+</TABLE>
+
+<H2>更新履歴</H2>
+<TABLE border="0" summary="Changelog">
+<THEAD>
+<TR><TH>日付</TH><TH>バージョン</TH><TH>変更点</TH></TR>
+</THEAD>
+<TBODY>
+<TR>
+<TD>2003年 7月 16日</TD>
+<TD>1.2.1-2-Win</TD>
+<TD>Windows 版でエンバグしていたので修正しました。</TD>
+</TR>
+<TR>
+<TD>2003年 7月 8日</TD>
+<TD>1.2.1-Win</TD>
+<TD>Windows 用バイナリをテスト公開。開発環境には OpenWatcom 1.0 を使用しました。</TD>
+</TR>
+<TR>
+<TD>2002年 7月 8日</TD>
+<TD>1.2.1</TD>
+<TD>spec ファイル作成、 RPM での配布も開始。</TD>
+</TR>
+<TR>
+<TD>2002年 2月 13日</TD>
+<TD>1.2.0</TD>
+<TD>入力ファイルの改行コード指定を無くした。</TD>
+</TR>
+<TR>
+<TD></TD>
+<TD></TD>
+<TD>-h,--help 及び -c オプションの動作について若干の修正。 ( 1.1.0 では -c 以後にオプションがあるとファイル名として認識していたが、単に無視するようにした。ただし間違ったオプションが指定されているとエラーとなる。 -c と -h,--help が同時に指定されている場合、 -h,--help を優先 )</TD>
+</TR>
+<TR>
+<TD>2002年 2月 13日</TD>
+<TD>1.1.0</TD>
+<TD>Yoh2 氏による修正 ( 詳細は アーカイブ内 Changelog.eucJP.txt 参照。 )</TD>
+</TR>
+<TR>
+<TD></TD>
+<TD></TD>
+<TD>README.eucJP.txt の間違いの修正、バージョンアップにともなう更新。</TD>
+</TR>
+<TR>
+<TD></TD>
+<TD></TD>
+<TD>その他細かい(動作に関係の無い…と思われる)修正。</TD>
+</TR>
+<TR>
+<TD></TD>
+<TD></TD>
+<TD>COPYING ファイルを追加。</TD>
+</TR>
+<TR>
+<TD>2002年 2月 11日</TD>
+<TD>1.0.0</TD>
+<TD>予定していた全ての動作が可能になったので、正式公開。</TD>
+</TR>
+</TBODY>
+</TABLE>
+
+<H2>使用方法</H2>
+<P>
+<BR> $ retcoder [-m|-u|-d|-o (mac|unix|dos)] [-v] [filename] ..
+<BR> $ retcoder -c [filename] ..
+<BR> $ retcoder (-h|-help)
+</P>
+
+<P>オプションには以下のものがあります。</P>
+<PRE>
+   -m|-u|-d
+   -o (mac|unix|dos)
+              出力の改行コードを指定して変換します。指定されなかった場
+              合、変換を行わないものと見なされます。
+              複数回指定した場合、最後に指定したものになります。
+
+   -v         このオプションを指定した場合、標準エラー出力に判定結果を
+              表示します。
+
+   -c         変換は行わず,改行コードの判定のみ行い、標準出力に判定結
+              果を表示します。
+              (UNIX, MAC, DOS, MIXED, NORC)
+
+   -h,--help  使用方法を表示します。
+
+   --         このオプションがあった場合、それ以降の引数は全てファイル
+              名であると仮定します。ファイル名の先頭に &quot;-&quot; が付いてい
+              る場合などに利用する必要があります。
+</PRE>
+
+<P>filename が省略された場合,標準入力から読み込みます。</P>
+
+<P>オプションの指定が複数あった場合、最後に指定したものを有効にします。
+<BR>ただし -c,-h,--help があった場合には、他のオプションは無視してそのオプションの動作をします。 -c と -h,--help が同時に指定された場合、 -h,--help を優先します。</P>
+
+<H2>注意事項</H2>
+<UL>
+ <LI>標準出力のリダイレクト先として入力ファイルを指定すると、正常に変換が行われません。</LI>
+<LI>2種類以上の改行コードが混在している場合、変換後の改行の回数は期待通りにならない可能性があります。</LI>
+</UL>
+ 
+<H2>改編,再配布等について</H2>
+
+<P>ライセンスに関しては、 GNU GPL (v2 or later) にしたがうものとします。</P>
+<P>ソースコードの改編等した場合、改編したコードを作者宛に送ってもらえるとありがたいです。( 義務ではありません。 )
+<BR>拙い知識で書いた物なので,アドバイス等頂ければ幸いです。
+<BR>バグの報告も含め,連絡は下記のメールアドレスまでお願いします。</P>
+<P>注意 : ソースアーカイブ内の README.eucJP.txt に書かれているメールアドレスにはなるべく送信しないで下さい。こちらで受信できない可能性があります。</P>
+<ADDRESS>local-part:yoheie domain:gmail.com</ADDRESS>
+<HR>
+<P><A href="../index.html">トップページへ</A></P>
+<HR>
+<P><A href="http://validator.w3.org/check?uri=referer"><IMG src="http://www.w3.org/Icons/valid-html401.png" alt="W3C Validator Check" height="31" width="88"></A> <A href="http://openlab.ring.gr.jp/k16/htmllint/htmllint.cgi?ViewSource=on"><IMG src="http://openlab.ring.gr.jp/k16/images/ahl-good.png" alt="Another HTML-Lint Check" width="88" height="31"></A></P>
+</BODY>
+</HTML>

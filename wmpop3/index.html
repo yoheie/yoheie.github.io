@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>wmpop3 複数アカウント対応パッチ</TITLE>
+</HEAD>
+<BODY>
+<H1>wmpop3 複数アカウント対応パッチ</H1>
+<P>プログラミングの勉強がてら、WindowMaker 用のドックアプリ, wmpop3 を複数アカウント対応にしました。</P>
+<H2>wmpop3 とは</H2>
+<P>WindowMaker のドックアプリで、 POP3 サーバにメールがあるかどうか、何通届いているかを知らせてくれるものです。</P>
+<H2>当パッチでの変更点</H2>
+<UL>
+<LI>複数のアカウントをチェック出来るようにしました。(今まではアカウントの分だけ設定ファイルを用意して複数個起動しなければなりませんでした)</LI>
+<LI>設定ファイルの仕様が変更になっています。今までの設定ファイルでは動きません。</LI>
+<LI>表示内容も変更になっています。各アカウント毎のメール数を表示する代わりに、全体での表示は &quot;新着数 / 全メール数&quot; での表示のみにしました。</LI>
+</UL>
+<P>今までも &quot;-c&quot; オプションを使って複数起動する事で複数のアカウントをチェックする事は可能でしたが、アカウントが多くなるとそれだけで沢山の wmpop3 に占拠されてしまい、狭くなってしまう感がありました。そこで 1つ起動するだけで OK にしようと思い、作成しました。</P>
+<H2>残っている問題点</H2>
+<UL>
+<LI>サーバに接続している間、描画が止まっている。マウスの検知も再描画の瞬間まで待たされる。</LI>
+<LI>アカウントが多くなるほど、1つのアカウントについて次にチェックするまでの時間が長くなる。しかしチェック間隔を短くすると描画の止まっている時間が長くなる。</LI>
+</UL>
+<P>アカウントが4つ以上ある場合、1つですべてのアカウントをチェックするよりも、設定ファイルを2つにして半分ずつ分担した方が能率が良さそうな… (^^;
+<BR>もともと複数起動するのがイヤだったから作成したのに (^^;;</P>
+<H2>設定方法</H2>
+<P>設定ファイルは次のようになっています。</P>
+<PRE>
+# Replace all &lt; &gt; with appropriate data
+#
+# Apprication settings
+mailclient         pine   # default mail client
+autochecking       0      # 1 enables, 0 disables
+mailcheckdelay     2      # default mail check time in minutes
+viewallmessages    1      # 0 Shows both read and unread messages
+#                           and 1 shows only unread messages
+#                           when showing each account
+#
+# Server settings
+# You can define 8 or less accounts.
+{
+popserver          foo.net
+port               110    # default port
+username           hoge
+password           HogEhOgE
+}
+{
+popserver          bar.ne.jp
+port               110    # default port
+username           hoge_hoge
+password           HhoOgGEe
+}
+</PRE>
+<P>まずアプリケーションの設定が4項目あり、次にアカウント毎の設定4項目を{}で括って、アカウントの分だけ書きます。 ( なお、 { と } はそれだけで1行使うようにして下さい。 )</P>
+<H3>各項目についての説明</H3>
+<P>各設定項目について解説します。</P>
+<TABLE border="1" summary="wmpop3 設定項目">
+<TBODY>
+<TR>
+<TH>mailclient</TH>
+<TD>使用するメーラを指定します。<BR>メール箱の画面をクリックすると指定したメーラが起動します。</TD>
+</TR>
+<TR>
+<TH>autochecking</TH>
+<TD>一定時間毎に自動でチェックするかどうかを指定します。<BR>0 でチェックしない、1でチェックします。</TD>
+</TR>
+<TR>
+<TH>mailcheckdelay</TH>
+<TD>自動チェックをする場合、その間隔を分で指定します。<BR>複数のアカウントでは、1つ目のアカウントチェック後ここで指定した時間が経過したら2つ目、また経過したら3つ目…となります。</TD>
+</TR>
+<TR>
+<TH>viewallmessages</TH>
+<TD>※オリジナルのものと項目の名前が同じですが、動作は違います。<BR>各アカウント毎のメール数の表示時に、新着のみ表示するか全て表示するかを指定します。<BR>0 で全て表示、1 で新着のみ表示です。</TD>
+</TR>
+<TR>
+<TH>popserver</TH>
+<TD>POP3 サーバ名を指定します。</TD>
+</TR>
+<TR>
+<TH>port</TH>
+<TD>POP3 サーバのポートを指定します。( 通常は 110 です。)</TD>
+</TR>
+<TR>
+<TH>username</TH>
+<TD>POP3 のユーザ名を指定します。</TD>
+</TR>
+<TR>
+<TH>password</TH>
+<TD>POP3 のパスワードを指定します。</TD>
+</TR>
+</TBODY>
+</TABLE>
+<P>アカウントは最大8つまで指定できます。ソースをちょっといじれば更に増やすことも可能です。パッチを当てた後に、 wmpop3/wmpop3.c の 49行目、 &quot;#define MAXACOUNTS 8&quot; を変更して下さい。</P>
+<H2>使用方法</H2>
+<H3>全アカウント合計表示</H3>
+<P>起動すると、<IMG src="./wmpop3_1.jpg" alt="wmpop3画面:1" height="64" width="63">このような画面が表示されると思います。どれかのアカウントに新着メールがあるとメール箱が<IMG src="./wmpop3_5.jpg" alt="wmpop3画面:2" height="64" width="63">このように変わります。真ん中の数字は、右側が全メール数、左側が新着メール数です。</P>
+<P>下のボタンは、左が自動チェックの ON / OFF 、真ん中が強制的にチェック、右は全アカウント合計 / 各アカウント毎の表示切替えです。</P>
+<P>全アカウント合計の表示時に真ん中のボタンをクリックすると、すぐに全てのアカウントについてチェックを開始します。</P>
+<P>どれかのアカウントでエラーがあると、<IMG src="./wmpop3_3.jpg" alt="wmpop3画面:3" height="64" width="63">このように、メール箱の横に &quot;E&quot; の文字が表示されます。</P>
+<H3>各アカウント毎の表示</H3>
+<P>下の右のボタンを押すと、<IMG src="./wmpop3_2.jpg" alt="wmpop3画面:4" height="64" width="63">このような画面に切り替わります。設定ファイルで2番目に設定されているアカウント ( 真ん中の &quot;AC&quot; に続く数字がアカウントの番号 ) について、新着 / 全メール数を表示 ( &quot;:&quot;の後の数字 ) します。新着と全メール数のどちらを表示するかは設定ファイルで記述します。</P>
+<P>この状態で真ん中のボタンを押すと、そのアカウントのみすぐにチェックします。</P>
+<P>このアカウントでエラーがあった場合、<IMG src="./wmpop3_4.jpg" alt="wmpop3画面:5" height="64" width="63">このように、メール数を表示するところに &quot;ER&quot; と表示されます。</P>
+<H2>注意</H2>
+<P>このパッチは私のプログラミングの学習がてらに作成したものなので、バグ等動作不良の存在する可能性は否定できません。 wmpop3 及び私のパッチを利用したことによりいかなる問題が生じても当方では責任を負えません。</P>
+<H2>ダウンロード</H2>
+<TABLE border="0" summary="Source Files">
+<TBODY>
+<TR>
+<TD><A href="WMPop3-0.5.6a.tar.gz">WMPop3-0.5.6a.tar.gz</A></TD>
+<TD>オリジナルのソースファイル</TD>
+</TR>
+<TR>
+<TD><A href="wmpop3-0.5.6a-ma-1.patch">wmpop3-0.5.6a-ma-1.patch</A></TD>
+<TD>パッチファイル第1版 作成 : 2002年2月7日</TD>
+</TR>
+</TBODY>
+</TABLE>
+<P>オリジナルの配布元は <A href="http://www.cs.mun.ca/%7Escotth/index.html">http://www.cs.mun.ca/~scotth/index.html</A>です。</P>
+<H2>更新履歴</H2>
+<TABLE border="0" summary="更新履歴">
+<TBODY>
+<TR>
+<TD valign="top">2002年 2月 7日</TD>
+<TD>公開第1版。</TD>
+</TR>
+</TBODY>
+</TABLE>
+<H2>今後の予定</H2>
+<P>他力本願。</P>
+<P>自分ではこれ以上修正する気は当分起きないと思われます。</P>
+<P>自分に必要な機能は揃ったので。</P>
+<P>本当はローカルスプールとか APOP とか IMAP とか全部に対応させると幸せになれそうですが、 (そうなったらもはや wm&quot;pop3&quot; では無い気もしますが) 需要もなく知識も技量も足りなすぎるため対応する予定は全くありません。</P>
+<H2>募集中</H2>
+<UL>
+<LI>相当いい加減に書かれている設定ファイルの読み込み部分をもう少ししっかりしたものに書き直して下さる方。</LI>
+<LI>その他修正や動作改善のパッチを送って下さる方。</LI>
+<LI>バグ報告や改善要求は歓迎しますが、私の技量の都合上大抵は不可能かも知れません。具体的にどこをどのように直すと良い、といったことを示して頂けると多少対応度は上がると思います。</LI>
+</UL>
+<HR>
+<P><A href="../misc/index.html">その他諸々置き場へ</A></P>
+<P><A href="../index.html">トップページへ</A></P>
+<HR>
+<P><A href="http://validator.w3.org/check?uri=referer"><IMG src="http://www.w3.org/Icons/valid-html401.png" alt="W3C Validator Check" height="31" width="88"></A> <A href="http://openlab.ring.gr.jp/k16/htmllint/htmllint.cgi?ViewSource=on"><IMG src="http://openlab.ring.gr.jp/k16/images/ahl-good.png" alt="Another HTML-Lint Check" width="88" height="31"></A></P>
+</BODY>
+</HTML>

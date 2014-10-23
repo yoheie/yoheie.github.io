@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML lang="ja">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>遠藤 陽平 の コンテンツ dillo 国際化(i18n)パッチ RPM</TITLE>
+</HEAD>
+<BODY>
+
+<H1>dillo 国際化(i18n)パッチ RPM</H1>
+<P><A href="./index_en.html">English</A></P>
+<P>2006年 1月 12日</P>
+<P>超軽量ブラウザ <A href="http://www.dillo.org/">dillo</A> に <A href="http://teki.jpn.ph/pc/software/">てきとーぺえじ</A> にて公開の国際化(i18n)パッチを当てたものを配布しております。</P>
+<P>同梱のファイルの一部は<A href="http://www.hyperborea.org/software/dillo/">Kelson Vibber 氏 公開の rpm</A>から流用しています。 spec ファイルは 0.7.3-6patch20031016 以降独自のものを用いています。</P>
+<P>rpm 作成環境は Vine Linux 3.1 (Kernel 2.4.31-0vl1.10, gcc 3.3.2 20031218, glibc 2.3.3, rpm 4.0.5) です。</P>
+
+<H2>ファイル</H2>
+<H3>最新版 (0.8.5-i18n-misc-20060105)</H3>
+<UL>
+<LI><A href="./dillo-i18n-misc-0.8.5.20060105-1.src.rpm" type="application/x-rpm">dillo-i18n-misc-0.8.5.20060105-1.src.rpm</A></LI>
+<LI><A href="./dillo-i18n-misc-0.8.5.20060105-1.i386.rpm" type="application/x-rpm">dillo-i18n-misc-0.8.5.20060105-1.i386.rpm</A></LI>
+</UL>
+<H3>シンプルな国際化のみのバージョン (0.8.5-i18n-20050620)</H3>
+<UL>
+<LI><A href="./dillo-i18n-0.8.5.20050620-1.src.rpm" type="application/x-rpm">dillo-i18n-0.8.5.20050620-1.src.rpm</A></LI>
+<LI><A href="./dillo-i18n-0.8.5.20050620-1.i386.rpm" type="application/x-rpm">dillo-i18n-0.8.5.20050620-1.i386.rpm</A></LI>
+</UL>
+<H3>旧バージョン</H3>
+<P>サーバ容量の問題により、旧バージョンの配布を停止しております。必要な方はメールにてご連絡ください。</P>
+
+<H2>Notice</H2>
+<P>0.8.4-i18n-misc-20050208 / 0.8.4-i18n-20050115 よりパッケージ名、バージョン番号の規則を変更しました。以前のバージョンからの更新は、一旦 rpm -e dillo で旧バージョンをアンインストールし、 rpm -i dillo-i18n-misc で新バージョンをインストールして下さい。(2005年02月13日)</P>
+<P>ソース RPM への 本体ソースの同梱及びバイナリ RPM の配布を再開。(2004年08月21日)</P>
+<P>spec ファイルを Kelson Vibber 氏によるものに手を加えたものから独自に作成したものに変更しました。(2003年10月17日)</P>
+<P>spec の不備により、 .mo ファイルがインストールされていなかったのを修正しました。(Kiyo様よりご指摘、a様より spec ファイルの差分をいただきました。ありがとうございます。)</P>
+<P>リリース番号の付け方の規則を変更したため、 20030924 以前のバージョンの rpm からアップデートする場合、一旦アンインストール後に再インストールしてください。 (2003年10月13日)</P>
+<P><DEL>SSL が使えない環境の方は、 spec ファイルの 98行目の --enable-ssl とその直前の行の行末の\を消してください。</DEL>2003年09月24日版以降のバージョンでは --enable-ssl がデフォルトとなっているそうです。無効にするには --disable-ssl としてください。(Kiyo様よりご指摘いただきました。ありがとうございます。)</P>
+<HR>
+<P><A href="../misc/index.html">その他諸々置き場へ</A></P>
+<P><A href="../index.html">トップページへ</A></P>
+<HR>
+<P><A href="http://validator.w3.org/check?uri=referer"><IMG src="http://www.w3.org/Icons/valid-html401.png" alt="W3C Validator Check" height="31" width="88"></A> <A href="http://openlab.ring.gr.jp/k16/htmllint/htmllint.cgi?ViewSource=on"><IMG src="http://openlab.ring.gr.jp/k16/images/ahl-good.png" alt="Another HTML-Lint Check" width="88" height="31"></A></P>
+</BODY>
+</HTML>
