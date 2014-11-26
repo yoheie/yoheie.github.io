@@ -1,0 +1,3 @@
+<FilesMatch "^gbacal-.*\.bin$">
+Header set Content-Disposition "attachment; filename=gbacal.bin"
+</FilesMatch>
