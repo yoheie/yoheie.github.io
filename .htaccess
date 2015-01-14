@@ -1,2 +1,3 @@
 AddType application/x-rpm rpm
+AddType application/pgp-keys asc
 RedirectMatch 404 /\.git
