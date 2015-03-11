@@ -5,10 +5,7 @@
 *    !!!!! NO WARRANTY !!!!!  USE AT YOUR OWN RISK.                  *
 *     Do not contact or ask Tektronix, Inc. about this program.      *
 *                                                                    *
-* 2015-03-11  Ver. 0.2.0               Yohei Endo <yoheie@gmail.com> *
-*                                                                    *
-* Special thanks to:                                                 *
-*   Richard Theil, reporting header information and some issues.     *
+* 2014-01-31  Ver. 0.1.7               Yohei Endo <yoheie@gmail.com> *
 *********************************************************************/
 #include <stdio.h>
 #include <string.h>
@@ -18,7 +15,7 @@
 #include <io.h>
 #endif
 
-#define ISFTOASC_VERSION "0.2.0"
+#define ISFTOASC_VERSION "0.1.7"
 
 #define ISF_HEADER_SIZE_MAX 511
 
@@ -70,11 +67,9 @@ int read_curve_asc(FILE *isffile);
 int main(int argc, char *argv[])
 {
 	FILE *isffile;
-	const char *fname;
 	int i;
 	int c;
-	char check_str[8];
-	int wfmpre_found;
+	char check_str[14];
 
 	if ((argc != 1) && (argc != 2)) {
 		fprintf(stderr, " Usage : isftoasc [filename]\n");
@@ -86,86 +81,51 @@ int main(int argc, char *argv[])
 		_setmode(_fileno(stdin), _O_BINARY);
 #endif
 		isffile = stdin;
-		fname = "(stdin)";
 	}
 	else {
 		if ((isffile = fopen(argv[1], "rb")) == NULL) {
 			fprintf(stderr, " Error : Can't Open file %s\n", argv[1]);
 			return 1;
 		}
-		fname = argv[1];
 	}
 
 	printf("# Converted by isftoasc Ver. " ISFTOASC_VERSION "\n");
 
-	/***** Check if the File starts with ':' *****/
-	if (((c = fgetc(isffile)) == EOF) || (c != ':')) {
-		fprintf(stderr, " Error : File %s seems not ISF file\n", fname);
+	/***** Check if the File is ISF format *****/
+	fgets(check_str, 9, isffile);
+	if ((strcmp(check_str, ":WFMPRE:")) != 0) {
+		fprintf(stderr, " Error : File %s seems not ISF file\n", (argc == 1) ? "(stdin)" : argv[1]);
 		fclose(isffile);
 		return 1;
 	}
 
-	wfmpre_found = 0;
-	do {
-		/***** Get Header *****/
-		i = 0;
-		while ((c = fgetc(isffile)) != EOF) {
-			if (i >= (sizeof(check_str) - 1)) {
-				fprintf(stderr, " Error : Too larege Header\n");
-				fclose(isffile);
-				return 1;
-			}
-			check_str[i] = c;
-			i++;
-			if ((c == ':') || (c == ' ')) {
-				break;
-			}
-		}
-		check_str[i] = '\0';
-		if ((strcmp(check_str, "WFMPRE:")) != 0) {
-			break;
-		}
-		wfmpre_found = 1;
-
-		/***** Read Header to isf_header_str[] *****/
-		i = 0;
-		while (((c = fgetc(isffile)) != EOF) && (c != ':')) {
-			if (i >= ISF_HEADER_SIZE_MAX) {
-				fprintf(stderr, " Error : Too larege Header\n");
-				fclose(isffile);
-				return 1;
-			}
-			isf_header_str[i] = c;
-			i++;
-		}
-		isf_header_str[i] = '\0';
-
-		/***** Init Header *****/
-		if ((init_isf_header() != 0)) {
+	/***** Read Header to isf_header_str[] *****/
+	i = 0;
+	while (((c = fgetc(isffile)) != EOF) && (c != ':')) {
+		if (i >= ISF_HEADER_SIZE_MAX) {
+			fprintf(stderr, " Error : Too larege Header\n");
 			fclose(isffile);
 			return 1;
 		}
-	} while (1);
-
-	/***** Check if WFMPRE exists *****/
-	if (!wfmpre_found) {
-		fprintf(stderr, " Error : File %s seems not ISF file\n", fname);
-		fclose(isffile);
+		isf_header_str[i] = c;
+		i++;
 	}
+	isf_header_str[i] = '\0';
 
-	/***** Check Header Value *****/
-	if (check_isf_header() != 0) {
+	/***** Init and Check Header *****/
+	if ((init_isf_header() != 0) || (check_isf_header() != 0)) {
 		fclose(isffile);
 		return 1;
 	}
 
 	/***** Read, Calc Data and Print *****/
+	fgets(check_str, 7, isffile);
 	if (strcmp(check_str, "CURVE ") != 0) {
 		fprintf(stderr, " Error : CURVE read error\n");
 		fclose(isffile);
 		return 1;
 	}
-	if ((strcmp(isf_header.encdg, "BIN") == 0) || (strcmp(isf_header.encdg, "BINARY") == 0)) {
+	if (strcmp(isf_header.encdg, "BIN") == 0) {
 		if (read_curve_bin(isffile) != 0) {
 			fprintf(stderr, " Error : CURVE read error\n");
 			fclose(isffile);
@@ -257,7 +217,8 @@ int init_isf_header(void)
 			isf_header.yunit = header_value;
 		}
 		else {
-			fprintf(stderr, " Warning : Unsupported Header %s\n", header_name);
+			fprintf(stderr, " Error : Unsupported Header %s\n", header_name);
+			return 1;
 		}
 		printf("# %s %s\n", header_name, header_value);
 	} while ((header_name = strtok(NULL, " ")) != NULL);
@@ -283,8 +244,8 @@ int check_isf_header(void)
 		fprintf(stderr, " Error : Wrong BIT_NR (%d)\n", isf_header.bit_nr);
 		return 1;
 	}
-	/********** ENCDG : ASC or BIN or BINARY **********/
-	if ((strcmp(isf_header.encdg,"ASC") != 0) && (strcmp(isf_header.encdg,"BIN") != 0) && (strcmp(isf_header.encdg,"BINARY") != 0)) {
+	/********** ENCDG : ASC or BIN **********/
+	if ((strcmp(isf_header.encdg,"ASC") != 0) && (strcmp(isf_header.encdg,"BIN") != 0)) {
 		fprintf(stderr, " Error : Wrong ENCDG (%s)\n", isf_header.encdg);
 		return 1;
 	}
@@ -353,8 +314,8 @@ int read_curve_bin(FILE *isffile)
 			point = point - 65536;
 		}
 		y = isf_header.yzero + (isf_header.ymult * (point - isf_header.yoff));
-		/* x = isf_header.xincr * i; */
-		x = isf_header.xzero + (isf_header.xincr * (i - isf_header.pt_off));
+		x = isf_header.xincr * i;
+		/* x = isf_header.xzero + (isf_header.xincr * (i - isf_header.pt_off)); */
 		printf("%E %E\n", x, y);
 	}
 
