@@ -11,10 +11,10 @@ Summary: LHa file archiving utility with compress
 Summary(ja): LHa 高圧縮アーカイバ
 License: distributable
 Group: Applications/File
-Url: http:/sourceforge.jp/projects/lha
+Url: http://lha.osdn.jp/
 # Url: http://www2m.biglobe.ne.jp/~dolphin/lha/lha.htm
 # Url: http://ns103.net/~arai/lha/
-Packager: Yohei ENDO <yoheie@ap3.mopera.ne.jp>
+Packager: Yohei Endo <yoheie@gmail.com>
 
 Buildroot: %{_tmppath}/%{name}-%{version}-root
 Prefix: %{_prefix}
@@ -58,29 +58,33 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/ja/mann/lha.n*
 
 %changelog
-* Tue May 10 2005 Yohei ENDO <yoheie@ap3.mopera.ne.jp>
+* Tue Sep 15 2015 Yohei Endo <yoheie@gmail.com>
+- Remove old mail address
+- Fix Url
+
+* Tue May 10 2005 Yohei Endo
 - Do not define name, version, release, source
 
-* Sat Nov 01 2003 Yohei ENDO <yoheie@ap3.mopera.ne.jp>
+* Sat Nov 01 2003 Yohei Endo
 - Use %{_prefix}/bin instead of %{_bindir}
 
-* Fri Feb 14 2003 Yohei ENDO <yoheie@ap3.mopera.ne.jp>
+* Fri Feb 14 2003 Yohei Endo
 - Summary(ja) changed
 
-* Mon Feb 10 2003 Yohei ENDO <yoheie@ap3.mopera.ne.jp>
+* Mon Feb 10 2003 Yohei Endo
 - Write some useful definition
 
-* Fri Feb 07 2003 Yohei ENDO <yoheie@ap3.mopera.ne.jp>
+* Fri Feb 07 2003 Yohei Endo
 - Chenged "Copyright" -> "License"
 - Url changed
 - description changed
 
-* Tue Feb 04 2003 Yohei ENDO <yoheie@ap3.mopera.ne.jp>
+* Tue Feb 04 2003 Yohei Endo
 - Changed for Single archive
 
-* Mon Oct 28 2002 Yohei ENDO <yoheie@ap3.mopera.ne.jp>
+* Mon Oct 28 2002 Yohei Endo
 - 1.14i.autoconf20020903-2
 - Url and description are fixed
 
-* Tue Sep 03 2002 Yohei ENDO <yoheie@ap3.mopera.ne.jp>
+* Tue Sep 03 2002 Yohei Endo
 - 1.14i.autoconf20020903-1
