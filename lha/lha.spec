@@ -12,8 +12,8 @@ Summary(ja): LHa 高圧縮アーカイバ
 License: distributable
 Group: Applications/File
 Url: http://lha.osdn.jp/
+# Url: https://github.com/jca02266/lha
 # Url: http://www2m.biglobe.ne.jp/~dolphin/lha/lha.htm
-# Url: http://ns103.net/~arai/lha/
 Packager: Yohei Endo <yoheie@gmail.com>
 
 Buildroot: %{_tmppath}/%{name}-%{version}-root
@@ -24,8 +24,6 @@ LHa is a file archiving utility with compress.
 This is autoconfiscated and bug-fixed version of original 1.14i.
 Original 1.14i can be found at:
  http://www2m.biglobe.ne.jp/~dolphin/lha/prog/lha-1.14i.tar.gz
-Patch for 1.14i can be found at:
- http://ns103.net/~arai/lha/
 
 %description -l ja
 LHa は効率の高い圧縮機能を持つファイルアーカイバです。
@@ -33,8 +31,6 @@ LHa は効率の高い圧縮機能を持つファイルアーカイバです。
 いくつかの bug fix をしたものです。
 オリジナルの 1.14i は以下の URI から入手可能です。
  http://www2m.biglobe.ne.jp/~dolphin/lha/prog/lha-1.14i.tar.gz
-1.14i に対するパッチは以下の URI から入手可能です。
- http://ns103.net/~arai/lha/
 
 %prep
 rm -rf ${RPM_BUILD_ROOT}
@@ -58,6 +54,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/ja/mann/lha.n*
 
 %changelog
+* Mon Sep 28 2015 Yohei Endo <yoheie@gmail.com>
+- Fix Urls
+
 * Tue Sep 15 2015 Yohei Endo <yoheie@gmail.com>
 - Remove old mail address
 - Fix Url
