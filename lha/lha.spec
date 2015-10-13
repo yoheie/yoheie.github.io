@@ -23,14 +23,14 @@ Prefix: %{_prefix}
 LHa is a file archiving utility with compress.
 This is autoconfiscated and bug-fixed version of original 1.14i.
 Original 1.14i can be found at:
- http://www2m.biglobe.ne.jp/~dolphin/lha/prog/lha-1.14i.tar.gz
+ http://www2m.biglobe.ne.jp/~dolphin/lha/prog/lha-114i.tar.gz
 
 %description -l ja
 LHa は効率の高い圧縮機能を持つファイルアーカイバです。
 このバージョンはオリジナルの 1.14i に autoconfiscate および
 いくつかの bug fix をしたものです。
 オリジナルの 1.14i は以下の URI から入手可能です。
- http://www2m.biglobe.ne.jp/~dolphin/lha/prog/lha-1.14i.tar.gz
+ http://www2m.biglobe.ne.jp/~dolphin/lha/prog/lha-114i.tar.gz
 
 %prep
 rm -rf ${RPM_BUILD_ROOT}
@@ -54,6 +54,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/ja/mann/lha.n*
 
 %changelog
+* Tue Oct 13 2015 Yohei Endo <yoheie@gmail.com>
+- Fix url for original 1.14i
+
 * Mon Sep 28 2015 Yohei Endo <yoheie@gmail.com>
 - Fix Urls
 
