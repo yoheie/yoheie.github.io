@@ -42,7 +42,7 @@ make
 
 %install
 rm -rf ${RPM_BUILD_ROOT}
-make prefix=${RPM_BUILD_ROOT}/%{_prefix} mandir=${RPM_BUILD_ROOT}%{_mandir}/ja install
+make prefix=${RPM_BUILD_ROOT}/%{_prefix} mandir=${RPM_BUILD_ROOT}/%{_mandir}/ja install
 
 %clean
 rm -rf ${RPM_BUILD_ROOT}
@@ -54,6 +54,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/ja/mann/lha.n*
 
 %changelog
+* Mon Nov 02 2015 Yohei Endo <yoheie@gmail.com>
+- Fix mandir on make install
+
 * Tue Oct 13 2015 Yohei Endo <yoheie@gmail.com>
 - Fix url for original 1.14i
 
