@@ -68,7 +68,7 @@ rm -rf ${RPM_BUILD_ROOT}
 - Do not define name, version, release, source
 
 * Sat Nov 01 2003 Yohei Endo
-- Use %{_prefix}/bin instead of %{_bindir}
+- Use %%{_prefix}/bin instead of %%{_bindir}
 
 * Fri Feb 14 2003 Yohei Endo
 - Summary(ja) changed
