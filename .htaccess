@@ -1,5 +1,6 @@
 AddType application/x-rpm rpm
 AddType text/x-rpm-spec spec
 AddType application/pgp-keys asc
+RemoveLanguage .cs
 RedirectMatch 404 /\.git
 Redirect 404 /README.md
