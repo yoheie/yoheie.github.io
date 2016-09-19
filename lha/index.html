@@ -11,7 +11,7 @@
 <P>LHa for UNIX autoconf 版は、岡本継男さんによって公開されている <A href="http://www2m.biglobe.ne.jp/%7Edolphin/lha/lha.htm">LHa for UNIX</A> に新井康司さんによる autoconf 化パッチを当てたものになります。</P>
 
 <H2>注意事項</H2>
-<STRONG style="color:red">本ページにて現在公開しているバージョンには脆弱性が存在します。<A href="https://github.com/jca02266/lha">GitHub リポジトリ</A>にある最新のソースコードを利用してください。</STRONG>
+<P><STRONG style="color:red">本ページにて現在公開しているバージョンには脆弱性が存在します。<A href="https://github.com/jca02266/lha">GitHub リポジトリ</A>にある最新のソースコードを利用してください。</STRONG></P>
 <P>RPM の作成環境は Vine Linux 3.2 (glibc 2.3.3 , gcc 3.3.2) です。</P>
 <P>Vine Linux 4.0 以降の lha は autoconf 版となっておりますので、本ページで公開している RPM を使用する必要はありません。 lha コマンド実行時に --system-kanji-code= オプションでシステムの文字コードを指定してください。</P>
 <P>binary RPM はシステムの文字コードを EUC-JP としてビルドしたものになります。他の文字コードの場合は lha コマンド実行時に --system-kanji-code= オプションで指定するか、デフォルト設定を変更する場合は configure オプション --enable-multibyte-filename= でシステムの文字コードを指定して source RPM からビルドし直す必要があります。また、 spec ファイルの文字コードも EUC-JP となっております。</P>
