@@ -14,7 +14,7 @@
 <P>本技術情報は私 遠藤 陽平 が独自に調査・作成したものです. 作成にあたり Microsoft 社の公式な資料を参照しておりますが, 本技術情報自体は Microsoft 社の公式な資料ではなく, Microsoft 社がその内容を保証するものではありません.</P>
 
 <P>対象 OS : Windows XP・Vista・7 32bit</P>
-<P>最終更新日 : 2013-01-15</P>
+<P>最終更新日 : 2016-11-01</P>
 
 <H2>はじめに</H2>
 
@@ -54,7 +54,7 @@
 
 <H2>API</H2>
 
-<P>下記の引数を指定して <A href="http://msdn.microsoft.com/library/cc429946.aspx">SystemParametersInfo API</A> を実行することで, X-Mouse 関連の設定が可能.</P>
+<P>下記の引数を指定して <A href="https://msdn.microsoft.com/library/cc429946.aspx">SystemParametersInfo API</A> を実行することで, X-Mouse 関連の設定が可能.</P>
 <P>これらの API による設定の変更は, ログオン中のユーザーに対し即座に反映される. また, SPIF_UPDATEINIFILE を指定した場合は同時に上記のレジストリへも設定が保存される. SPIF_SENDCHANGE の指定の有無による動作の相違は未確認.</P>
 
 <TABLE summary="X-Mouse 関連レジストリ">
@@ -129,13 +129,13 @@
 </THEAD>
 <TBODY>
 <TR>
-<TD><A href="http://msdn.microsoft.com/library/system.windows.forms.systeminformation.isactivewindowtrackingenabled.aspx">SystemInformation.IsActiveWindowTrackingEnabled</A></TD>
+<TD><A href="https://msdn.microsoft.com/library/system.windows.forms.systeminformation.isactivewindowtrackingenabled.aspx">SystemInformation.IsActiveWindowTrackingEnabled</A></TD>
 <TD>System.Windows.Forms</TD>
 <TD>Focus 設定</TD>
 <TD>.NET Framework 2.0 以降</TD>
 </TR>
 <TR>
-<TD><A href="http://msdn.microsoft.com/library/system.windows.forms.systeminformation.activewindowtrackingdelay.aspx">SystemInformation.ActiveWindowTrackingDelay</A></TD>
+<TD><A href="https://msdn.microsoft.com/library/system.windows.forms.systeminformation.activewindowtrackingdelay.aspx">SystemInformation.ActiveWindowTrackingDelay</A></TD>
 <TD>System.Windows.Forms</TD>
 <TD>待ち時間</TD>
 <TD>.NET Framework 2.0 以降</TD>
@@ -150,7 +150,7 @@
 
 <H3>TweakUI (for Windows XP)</H3>
 
-<P>『<A href="http://windows.microsoft.com/en-US/windows/downloads/windows-xp">Windows XP downloads - Microsoft Windows</A>』より TweakUI を入手, インストールする.</P>
+<P><DEL>『<!--<A href="http://windows.microsoft.com/en-US/windows/downloads/windows-xp">-->Windows XP downloads - Microsoft Windows<!--</A>-->』より TweakUI を入手, インストールする.</DEL>TweakUI の公開は終了したようだ.</P>
 
 <P>TweakUI を実行し, ツリーから『Mouse』→『X-Mouse』を選択する.</P>
 
@@ -183,6 +183,10 @@
 <TR>
 <TD>2013-01-15</TD>
 <TD>『はじめに』を追加.</TD>
+</TR>
+<TR>
+<TD>2016-11-01</TD>
+<TD>TweakUI の公開終了について追記.</TD>
 </TR>
 </TBODY>
 </TABLE>
