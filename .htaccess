@@ -4,4 +4,4 @@ AddType application/pgp-keys asc
 RemoveLanguage .cs
 RedirectMatch 404 /\.git
 Redirect 404 /README.md
-Redirect /others/cpp_hanoi.tar.bz2 /ext/cpp_hanoi.tar.bz2
+Redirect permanent /others/cpp_hanoi.tar.bz2 /ext/cpp_hanoi.tar.bz2
