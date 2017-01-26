@@ -56,6 +56,10 @@ C:\&gt;isodatetime /e /f
 <P>『X-Window Ver.11 プログラミング』第2版 (木下 凌一・林 秀幸 著 1993 日刊工業新聞社 ISBN10:4-526-03399-5) を参考に、 X11 の勉強のつもりで書いたものです。</P>
 <P>2016-11 公開にあたり一部修正と autotool 化を行いました。</P>
 <HR>
+<H2><A href="https://github.com/yoheie/escapefn">escapefn</A></H2>
+<P>Unix 系 OS ではファイル名に改行 (LF) 文字を含むことができ、 find コマンドにはこのようなファイル名のファイルを適切に扱うため、 NUL 文字区切りで出力する -print0 オプションがあります。</P>
+<P>escapefn は find -print0 の出力のような NUL 文字区切りのファイル名リストを、ファイル名中の改行 (LF) 文字をエスケープすることで、 1行 1ファイルの改行区切りのリストに変換するツールです。</P>
+<HR>
 <H2>ネタ</H2>
 <DL>
 <DT style="font-weight:bold"><A href="./segfault.c">segfault.c</A></DT>
