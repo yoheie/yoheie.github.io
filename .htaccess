@@ -5,3 +5,4 @@ RemoveLanguage .cs
 RedirectMatch 404 /\.git
 Redirect 404 /README.md
 Redirect permanent /others/cpp_hanoi.tar.bz2 /ext/cpp_hanoi.tar.bz2
+Options -MultiViews
