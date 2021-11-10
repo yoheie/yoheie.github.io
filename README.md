@@ -1,1 +1,1 @@
-https://yoheie.sakura.ne.jp/ で公開しているコンテンツ一式です。
+https://yoheie.github.io/ で公開しているコンテンツ一式です。
